@@ -237,8 +237,49 @@
   
 
 
-        <div class="bg_red_true">
-            <center class="m_0a d_block max_wpx_700 color_black py_40">
+
+
+
+
+        
+
+        <div class="bg_red_true p_30">
+
+
+
+
+            <div class="bg_white p_20 rounded">
+                <div class="font_sanseriffic color_balck">Confirmar Asistencia</div>
+                <form>
+                    <label class="w_100 mb_10 font_sanseriffic color_balck">Tu nombre</label>
+                    <input type="text" class="w_100 mb_10 border-1 brln_5px p_5 rounded font_sanseriffic color_balck" placeholder="Escribe tu nombre" required="">
+
+                    <label class="w_100 mb_10 font_sanseriffic color_balck">Número de acompañantes</label>
+                    <input type="number" class="w_100 mb_10 border-1 brln_5px p_5 rounded font_sanseriffic color_balck" min="0" placeholder="0" required="">
+
+                    <label class="font_sanseriffic color_balck">¿Asistirás?</label>
+                    <div class="opciones-radio">
+                        <div class="font_sanseriffic color_balck">
+                            <input type="radio" name="asistencia" value="si" required="">
+                            <label>Sí</label>
+                        </div>
+                        <div class="font_sanseriffic color_balck">
+                            <input type="radio" name="asistencia" value="no">
+                            <label>No</label>
+                        </div>
+                    </div>
+                    <label class="w_100 mb_10 font_sanseriffic color_balck">Palabras o buenos deseos</label>
+                    <textarea class="w_100 mb_10 border-1 brln_5px p_5 rounded font_sanseriffic color_balck" placeholder="Escribe un mensaje (opcional)"></textarea>
+                    <button type="submit" class="d_block bg_red_dark p_10 w_100 rounded border-0 font_sanseriffic fspx_20 color_white">Enviar</button>
+                </form>
+            </div>
+
+
+
+
+
+
+            <!--<center class="m_0a d_block max_wpx_700 color_black py_40">
                 <div class="px_20"><img src="greca1.png" class="w_100 filter_white"></div>
               
                 <a href="https://api.whatsapp.com/send?phone=4612735260&text=Hola,%20confirmo%20mi%20asistencia%20a%20tu%20evento" 
@@ -250,7 +291,7 @@
     
 
                 <div class="px_20"><img src="greca1.png" class="w_100 filter_white rotate_180"></div>
-            </center>
+            </center>-->
         </div>
 
         
@@ -570,6 +611,34 @@ document.querySelectorAll('.modal').forEach(function(modal) {
 
 
 
+
+
+
+
+document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const nombre = document.querySelector('input[type="text"]').value;
+    const acompanantes = document.querySelector('input[type="number"]').value;
+    const asistencia = document.querySelector('input[name="asistencia"]:checked').value;
+    const mensaje = document.querySelector('textarea').value;
+    
+    const textoAsistencia = asistencia === 'si' ? 'Sí asistiré' : 'No asistiré';
+    
+    let textoWhatsApp = `*Confirmación de Asistencia*%0A%0A`;
+    textoWhatsApp += `*Nombre:* ${nombre}%0A`;
+    textoWhatsApp += `*Acompañantes:* ${acompanantes}%0A`;
+    textoWhatsApp += `*Asistencia:* ${textoAsistencia}%0A`;
+    
+    if(mensaje) {
+        textoWhatsApp += `*Mensaje:* ${mensaje}`;
+    }
+    
+    const numeroWhatsApp = '4612735260';
+    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${textoWhatsApp}`;
+    
+    window.open(urlWhatsApp, '_blank');
+});
 
 
 
